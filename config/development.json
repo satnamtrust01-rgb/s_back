@@ -1,0 +1,10 @@
+{
+    "name": "My Express App - Development",
+    "db": {
+        "host": "localhost",
+        "user": "root",
+        "port":"3306",
+        "password":"surya@54321",
+        "database": "satname_trust"
+    }
+}
