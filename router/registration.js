@@ -34,6 +34,7 @@ router.post("/register", upload.single("image"), async (req, res) => {
     const {
       firstName,
       lastName,
+      father_name,
       mobile_no,
       email,
       aadhar_no,
@@ -53,26 +54,27 @@ router.post("/register", upload.single("image"), async (req, res) => {
     // IMPORTANT: fix columns order + set join_date + account_status here
     const sql = `
       INSERT INTO satname_registration
-      (user_id, first_name, last_name, mobile_no, email, aadhar_no, pan_no, password,
+      (user_id, first_name, last_name, father_name, mobile_no, email, aadhar_no, pan_no, password,
        occupasion, DoB, image, role, gender, address, join_date, account_status)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURDATE(), 'pending')
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURDATE(), 'pending')
     `;
 
     const params = [
-      userId,
-      firstName,
-      lastName,
-      mobile_no,
-      email,
-      aadhar_no,
-      pan_no,
-      password, 
-      occupation, 
-      dob, 
-      imagePath,
-      2, 
-      gender,
-      address,
+      userId,        // user_id
+      firstName,     // first_name
+      lastName,      // last_name
+      father_name,   // father_name
+      mobile_no,     // mobile_no
+      email,         // email
+      aadhar_no,     // aadhar_no
+      pan_no,        // pan_no
+      password,      // password
+      occupation,    // occupasion
+      dob,           // DoB
+      imagePath,     // image
+      2,             // role
+      gender,        // gender
+      address        // address
     ];
 
     const [result] = await mysql2.query(sql, params);
@@ -87,8 +89,6 @@ router.post("/register", upload.single("image"), async (req, res) => {
   }
 });
 
-
-
 // List all users WITH search + status filters for Admin table 
 router.get("/", async (req, res) => {
   try {
@@ -96,7 +96,7 @@ router.get("/", async (req, res) => {
 
     let sql = `
       SELECT id, user_id, first_name, last_name, mobile_no, email, aadhar_no, pan_no,
-             occupasion, DoB, image, role, gender, address, join_date, approve_date, account_status
+             occupasion, DoB, image, role, gender, address, join_date, approve_date, account_status, password, father_name
       FROM satname_registration
       WHERE 1=1
     `;
