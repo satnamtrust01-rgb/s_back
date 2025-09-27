@@ -20,6 +20,7 @@ const payment = require("./router/payment");
 
 
 
+
 const app = express();
 app.use(morgan("dev"));
 app.use(express.json());
@@ -50,6 +51,7 @@ app.use("/api/registration", registration);
 app.use("/api/dashboard", dashboard)
 app.use("/api/userdashboard", userdashboard);
 app.use("/api/payment", payment);
+
 
 
 //  START SERVER
